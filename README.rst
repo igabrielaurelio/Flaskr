@@ -15,7 +15,7 @@ Este projeto usa Flask com suporte a testes, cobertura, build e deploy via Waitr
 ## 📁 1. Navegar até o diretório do projeto
 
 ```powershell
-cd caminho\para\sua\pasta\projeto
+cd caminho para sua pasta projeto
 
 🧪 2. Criar e ativar ambiente virtual
 
