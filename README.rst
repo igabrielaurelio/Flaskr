@@ -1,68 +1,82 @@
-Flaskr
-======
+# 🐍 Projeto Flask - Setup Completo com Ambiente Virtual, Testes e Deploy com Waitress
 
-The basic blog app built in the Flask `tutorial`_.
+Este projeto usa Flask com suporte a testes, cobertura, build e deploy via Waitress. Abaixo está o passo a passo completo para configurar e executar.
 
-.. _tutorial: https://flask.palletsprojects.com/tutorial/
-
-
-Install
--------
-
-**Be sure to use the same version of the code as the version of the docs
-you're reading.** You probably want the latest tagged version, but the
-default Git version is the main branch. ::
-
-    # clone the repository
-    $ git clone https://github.com/pallets/flask
-    $ cd flask
-    # checkout the correct version
-    $ git tag  # shows the tagged versions
-    $ git checkout latest-tag-found-above
-    $ cd examples/tutorial
-
-Create a virtualenv and activate it::
-
-    $ python3 -m venv .venv
-    $ . .venv/bin/activate
-
-Or on Windows cmd::
-
-    $ py -3 -m venv .venv
-    $ .venv\Scripts\activate.bat
-
-Install Flaskr::
-
-    $ pip install -e .
-
-Or if you are using the main branch, install Flask from source before
-installing Flaskr::
-
-    $ pip install -e ../..
-    $ pip install -e .
-
-
-Run
 ---
 
-.. code-block:: text
+## ⚙️ Pré-requisitos
 
-    $ flask --app flaskr init-db
-    $ flask --app flaskr run --debug
+- Python 3 instalado  
+- PowerShell (no Windows)  
+- pip atualizado
 
-Open http://127.0.0.1:5000 in a browser.
+---
 
+## 📁 1. Navegar até o diretório do projeto
 
-Test
-----
+```powershell
+cd caminho\para\sua\pasta\projeto
 
-::
+🧪 2. Criar e ativar ambiente virtual
 
-    $ pip install '.[test]'
-    $ pytest
+py -3 -m venv .venv
+.venv\Scripts\activate
 
-Run with coverage report::
+⚠️ Se der erro ao ativar, execute:
 
-    $ coverage run -m pytest
-    $ coverage report
-    $ coverage html  # open htmlcov/index.html in a browser
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
+Depois digite S e tente ativar novamente.
+
+📦 3. Instalar dependências
+
+pip install -e .
+pip install flask
+pip install pytest
+pip install pytest-cov
+
+🗃️ 4. Inicializar banco de dados
+
+flask --app flaskr init-db
+
+🚀 5. Rodar aplicação em modo debug
+
+flask --app flaskr run --debug
+
+✅ 6. Rodar testes
+
+pytest
+
+📊 7. Gerar cobertura de testes
+
+coverage run -m pytest
+coverage html
+
+🛠️ 8. Gerar build do projeto
+
+pip install build
+python -m build
+
+# Depois da etapa 8, coloque o seu arquivo .venv em uma pasta chamada myproject e cria outro ambiente virtual
+
+📁 9. Instalar o pacote .whl gerado
+
+cd caminho\para\projeto\Flaskr\dist
+pip install flaskr-1.0.0-py2.py3-none-any.whl
+
+10. Gerar SECRET_KEY
+
+python -c 'import secrets; print(secrets.token_hex())'
+'192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
+
+Copie o valor gerado e crie um arquivo create.py com o conteúdo:
+
+SECRET_KEY = '192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
+
+🌐 11. Rodar aplicação com Waitress (produção)
+
+pip install waitress
+waitress-serve --call 'flaskr:create_app'
+
+✅ Pronto!
+Seu projeto está rodando com Flask e servidor Waitress em ambiente virtual, com testes e cobertura configurados.
+
